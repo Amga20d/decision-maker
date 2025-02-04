@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Poll</title>
+  <link rel="stylesheet" href="/styles/create_poll.css">
+</head>
+<body>
+  <h1>Create Poll</h1>
+  <% if (successMessage) { %>
+    <p><%= successMessage %></p>
+  <% } %>
+  <form action="/create_poll" method="POST">
+    <label for="title">Poll Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="admin_email">Admin Email:</label>
+    <input type="email" id="admin_email" name="admin_email" required>
+
+    <label for="option1">Option 1:</label>
+    <input type="text" id="option1" name="option1" required>
+    <label for="option1_desc">Description 1:</label>
+    <input type="text" id="option1_desc" name="option1_desc" required>
+
+    <label for="option2">Option 2:</label>
+    <input type="text" id="option2" name="option2" required>
+    <label for="option2_desc">Description 2:</label>
+    <input type="text" id="option2_desc" name="option2_desc" required>
+
+    <label for="option3">Option 3:</label>
+    <input type="text" id="option3" name="option3" required>
+    <label for="option3_desc">Description 3:</label>
+    <input type="text" id="option3_desc" name="option3_desc" required>
+
+    <button type="submit">Create Poll</button>
+  </form>
+</body>
+</html>

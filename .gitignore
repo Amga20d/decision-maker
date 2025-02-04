@@ -3,7 +3,4 @@ public/styles
 .env
 *.log
 *.sqlite3
-routes/create_poll.js
-views/create_poll.ejs
-styles/create_poll.scss
-public/styles/create_poll.css
+
