@@ -9,17 +9,25 @@
 
 </head>
 <body>
-<h1>POTATO</h1>
-<%for(const user of users) {%>
-<%= user.name %>
-<% } %>
-
 
 <br><br>
 
-<form action="/profile" method="POST">
-  <button type="submit" class="btn btn-primary">Send Mail To MEEEEE</button>
+<form id="submitEmail" action="/profile" method="POST">
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Send Email</button>
 </form>
+
+
+<script>
+  document.getElementById("submitEmail").addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission FOR TESTING
+    const email = document.getElementById('email').value; 
+    console.log('Email:', email);
+  });
+</script>
 
 </body>
 </html>
