@@ -14,4 +14,5 @@ const sendEmail = function() {
     text: "Congratulations MOGAR, you just sent an email with Mailgun! You are truly awesome!\n This is from the function!",
   });
 };
+
 module.exports = {sendEmail};
