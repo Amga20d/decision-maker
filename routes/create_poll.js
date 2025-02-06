@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { title, admin_email, option1, option1_desc, option2, option2_desc, option3, option3_desc } = req.body;
 
-  // Check if admin email already exists
+  // Check if admin email already exists so doubles are not created
   const checkUserQuery = `
     SELECT id FROM users WHERE email = $1;
   `;
