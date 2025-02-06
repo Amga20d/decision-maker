@@ -19,7 +19,12 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { title, admin_email, option1, option1_desc, option2, option2_desc, option3, option3_desc } = req.body;
 
-  // Check if admin email already exists so doubles are not created
+  // Set default descriptions if not provided
+  const option1Description = option1_desc || 'No description given';
+  const option2Description = option2_desc || 'No description given';
+  const option3Description = option3_desc || 'No description given';
+
+  // Check if admin email already exists
   const checkUserQuery = `
     SELECT id FROM users WHERE email = $1;
   `;
@@ -78,9 +83,9 @@ router.post('/', (req, res) => {
         ($7, $8, $9);
       `;
       const optionsValues = [
-        option1, option1_desc, poll_id,
-        option2, option2_desc, poll_id,
-        option3, option3_desc, poll_id
+        option1, option1Description, poll_id,
+        option2, option2Description, poll_id,
+        option3, option3Description, poll_id
       ];
 
       return db.query(insertOptionsQuery, optionsValues)
