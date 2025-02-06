@@ -9,7 +9,7 @@
 
 </head>
 <body>
-
+<h1>Enter email here</h1>
 <br><br>
 
 <form id="submitEmail" action="/profile" method="POST">
@@ -19,16 +19,6 @@
   </div>
   <button type="submit" class="btn btn-primary">Send Email</button>
 </form>
-
-
-<script>
-  document.getElementById("submitEmail").addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission FOR TESTING
-    const email = document.getElementById('email').value; 
-    console.log('Email:', email);
-  });
-</script>
-
 </body>
 </html>
 

@@ -20,13 +20,13 @@ router.get('/', (req, res) => {
 
 router.post('/', (req,res) => { // get data here from req
   console.log('Fired!');
-  // sendEmail()
-  // .then((data) => {
-  //   console.log(data);
+  sendEmail(req.body.email)
+  .then((data) => {
+    console.log(data);
     res.redirect('/profile');
-  // }).catch((err) => {
-  //   console.error(err);
-  // });
+  }).catch((err) => {
+    console.error(err);
+  });
 
 
 })
