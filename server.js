@@ -27,6 +27,7 @@ const usersRoutes = require('./routes/users');
 const profileRoutes = require('./routes/profile');
 const create_pollRoutes = require('./routes/create_poll');
 const linkRoutes = require('./routes/links');
+const votingRoutes = require('./routes/vote');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -36,7 +37,8 @@ app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/profile', profileRoutes);
 app.use('/create_poll', create_pollRoutes);
-app.use('/links',linkRoutes);
+app.use('/links', linkRoutes);
+app.use('/vote', votingRoutes);
 
 // Note: mount other resources here, using the same pattern above
 
