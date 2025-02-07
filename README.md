@@ -22,9 +22,12 @@ The following steps are only for _one_ of the group members to perform.
 3. Install dependencies: `npm i`
 4. Reset database: `npm run db:reset`  
   - Check the db folder to see what gets created and seeded in the DB
-5. Run the server: `npm run local`  
+5. Get `API key` from mailgun account
+  - Create a file in your `scripts` folder called `api-key`
+  - Create a variable called `API_KEY` with your key as the value and export the file
+6. Run the server: `npm run local`  
   - Note: nodemon is used, so you should not have to restart your server
-6. Visit [`http://localhost:8080/`](http://localhost:8080/)
+7. Visit [`http://localhost:8080/`](http://localhost:8080/)
 
 ## Warnings & Tips
 
