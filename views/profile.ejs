@@ -4,12 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="./styles/profile.css">
+  <link rel="stylesheet" href="../styles/profile.css">
+  <script src="/vendor/jquery-3.0.0.js"></script>
+
 </head>
 <body>
-<h1>Hello</h1>
-<% for (let user of users) { %>
-<p> <%= user.name %> </p>
-<% } %>
+<h1>Enter email here</h1>
+<br><br>
+
+<form id="submitEmail" action="/links" method="POST">
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Send Email</button>
+</form>
 </body>
 </html>
+
+

@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS options CASCADE;
+CREATE TABLE options (
+  id SERIAL PRIMARY KEY NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  poll_id INT NOT NULL,
+  FOREIGN KEY (poll_id) REFERENCES polls(id)
+);

@@ -5,8 +5,9 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8001;
 const app = express();
+const path = require('path');
 
 app.set('view engine', 'ejs');
 
@@ -15,7 +16,8 @@ app.set('view engine', 'ejs');
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -23,6 +25,8 @@ const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
 const profileRoutes = require('./routes/profile');
+const create_pollRoutes = require('./routes/create_poll');
+const linkRoutes = require('./routes/links');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -31,6 +35,9 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/profile', profileRoutes);
+app.use('/create_poll', create_pollRoutes);
+app.use('/links',linkRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
