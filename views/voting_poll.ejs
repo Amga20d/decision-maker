@@ -1,24 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Home Page</title>
+  <meta charset="UTF-8">
+  <title>Voting Poll</title>
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-
+  <!-- Base CSS -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-</head>
+  <!-- jQuery UI CSS from CDN -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
+  <style>
+    #sortable {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 300px;
+    }
+    #sortable li {
+      margin: 0 0 4px 0;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #F0F0F0;
+      border: 1px solid #CCCCCC;
+      cursor: move;
+    }
+  </style>
+</head>
 <body>
   <h1>Voting Poll Here!</h1>
-  <%= polls[0].title %>
-</body>
+  <!-- Display poll title from the DB -->
+  <h2><%= poll.title %></h2>
+  
+  <p>Drag and drop the options to rank your choices:</p>
+  <ul id="sortable">
+    <% poll.options.forEach(function(option) { %>
+      <li id="option-<%= option.id %>">
+        <strong><%= option.title %></strong> - <%= option.description %>
+      </li>
+    <% }); %>
+  </ul>
+  <button id="showOrder">Show Order</button>
+  <p id="orderDisplay"></p>
 
+  <!-- Include jQuery and jQuery UI -->
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+      // Initialize the sortable list functionality
+      $("#sortable").sortable();
+      $("#sortable").disableSelection();
+
+      // When "Show Order" is clicked, display the current order of items
+      $("#showOrder").on("click", function() {
+        let order = $("#sortable").sortable("toArray");
+        $("#orderDisplay").text("Current Order: " + order.join(", "));
+      });
+    });
+  </script>
+</body>
 </html>
