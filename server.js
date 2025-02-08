@@ -28,6 +28,7 @@ const profileRoutes = require('./routes/profile');
 const create_pollRoutes = require('./routes/create_poll');
 const linkRoutes = require('./routes/links');
 const votingRoutes = require('./routes/vote');
+const resultRoutes = require('./routes/results.js');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -39,6 +40,7 @@ app.use('/profile', profileRoutes);
 app.use('/create_poll', create_pollRoutes);
 app.use('/links', linkRoutes);
 app.use('/vote', votingRoutes);
+app.use('/results', resultRoutes);
 
 // Note: mount other resources here, using the same pattern above
 

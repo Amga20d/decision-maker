@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db/connection');
 
 router.get('/', (req, res) => {
-  const pollId = 2;
+  const pollId = 1;
 
   const query = `
   WITH ranked_votes AS (
