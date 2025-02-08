@@ -6,15 +6,15 @@ const db = require('../db/connection');
 router.get('/', (req, res) => {
   console.log('vote: fire!');
 
-  // Capture poll id from the query string (or default to 1 for now)
-  const pollId = req.query.pollId || 1;
+  const pollId = req.query.pollId || 3;  // change as needed
 
   const query = `
     SELECT polls.id AS poll_id, polls.title AS poll_title,
            options.id AS option_id, options.title AS option_title, options.description AS option_description
     FROM polls
     JOIN options ON polls.id = options.poll_id
-    WHERE polls.id = $1;
+    WHERE polls.id = $1
+    ORDER BY options.id;  -- or any fixed ordering criteria
   `;
 
   db.query(query, [pollId])
@@ -23,12 +23,13 @@ router.get('/', (req, res) => {
         return res.send("Poll not found");
       }
 
-      // Construct the poll object with its options.
+      // Construct the poll object. We add a fixed order property for each option.
       const poll = {
         id: result.rows[0].poll_id,
         title: result.rows[0].poll_title,
         options: result.rows.map((row, index) => ({
-          id: index + 1,  // renumbered sequentially for this poll
+          id: row.option_id,          // actual option id (used in join later)
+          fixed: index + 1,           // fixed order index (1-indexed)
           title: row.option_title,
           description: row.option_description
         }))
@@ -42,11 +43,9 @@ router.get('/', (req, res) => {
     });
 });
 
-
-
 // POST route to handle vote submission
 router.post('/', (req, res) => {
-
+  // req.body.order will be a comma-separated string, e.g. "3,2,1"
   const orderStr = req.body.order;
   if (!orderStr) {
     return res.status(400).send("No vote order submitted.");
@@ -54,12 +53,12 @@ router.post('/', (req, res) => {
   // Convert the string to an array of integers
   const orderArray = orderStr.split(',').map(num => parseInt(num, 10));
 
-  // Hard Coded UserId
+  // In a real app, get the user id from the session.
   const userId = 1;
   // Capture the poll id from the submitted form data
   const pollId = parseInt(req.body.poll_id, 10);
 
-  // Insert the vote into the votes table (which stores rank as an INT[]).
+  // Insert into votes table; votes.rank stores the ranking array.
   const insertQuery = `
     INSERT INTO votes (rank, user_id, poll_id)
     VALUES ($1, $2, $3)
@@ -67,7 +66,7 @@ router.post('/', (req, res) => {
   `;
   db.query(insertQuery, [orderArray, userId, pollId])
     .then(result => {
-      // Vote inserted; redirect to the results page.
+      // Vote inserted; redirect to /results
       res.redirect('/results');
     })
     .catch(err => {

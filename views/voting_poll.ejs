@@ -40,12 +40,13 @@
 
     <ul id="sortable">
       <% poll.options.forEach(function(option) { %>
-        <li id="<%= option.id %>">
+        <!-- Use the actual option id as the element id and include the fixed order as data-fixed -->
+        <li id="<%= option.id %>" data-fixed="<%= option.fixed %>">
           <strong><%= option.title %></strong> - <%= option.description %>
         </li>
       <% }); %>
     </ul>
-    <!-- Hidden input to store the ordered list -->
+    <!-- Hidden input to store the computed ranking array -->
     <input type="hidden" name="order" id="orderInput" value="">
     <button type="submit">Submit Vote</button>
   </form>
@@ -58,12 +59,29 @@
       $("#sortable").sortable();
       $("#sortable").disableSelection();
 
-      // Before form submission, update the hidden input with the current order
+      // When the form is submitted, compute the ranking array.
       $("#voteForm").on("submit", function() {
-        // Get an array of list item ids, e.g. ["1", "2", "3"]
-        let order = $("#sortable").sortable("toArray");
-        // Directly join them into a comma-separated string
-        $("#orderInput").val(order.join(","));
+        // Build a mapping: option id -> user's rank (position in current order)
+        let rankingMap = {};
+        $("#sortable li").each(function(index, li){
+          let id = $(li).attr("id");
+          rankingMap[id] = index + 1; // user's rank (1-indexed)
+        });
+
+        // Now, create an array ordered by the fixed order.
+        let rankingArray = [];
+        // Iterate over all list items; use the data-fixed attribute to order them.
+        $("#sortable li").each(function() {
+          let fixed = parseInt($(this).data("fixed"), 10);
+          let id = $(this).attr("id");
+          rankingArray.push({ fixed: fixed, userRank: rankingMap[id] });
+        });
+        // Sort by the fixed order (ascending)
+        rankingArray.sort((a, b) => a.fixed - b.fixed);
+        // Build the final ranking array: each element is the user rank for the option in that fixed position.
+        let finalRanking = rankingArray.map(item => item.userRank);
+        // Set the hidden input to the comma-separated ranking array
+        $("#orderInput").val(finalRanking.join(","));
       });
     });
   </script>
