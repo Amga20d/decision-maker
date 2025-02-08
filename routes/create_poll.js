@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
+const { sendEmail } = require('../public/scripts/email');
 
 router.get('/', (req, res) => {
   db.query('SELECT * FROM users;')
@@ -69,12 +70,11 @@ router.post('/', (req, res) => {
           const updateValues = [sub_id, poll_id];
 
           return db.query(updatePollQuery, updateValues)
-            .then(() => sub_id); // Return the sub_id
+            .then(() => ({ sub_id, poll_id })); // Return the sub_id and poll_id
         });
     })
-    .then((sub_id) => {
+    .then(({ sub_id, poll_id }) => {
       // Insert options
-      const poll_id = sub_id.split('/').pop();
       const insertOptionsQuery = `
         INSERT INTO options (title, description, poll_id)
         VALUES
@@ -92,11 +92,18 @@ router.post('/', (req, res) => {
         .then(() => sub_id); // Return the sub_id
     })
     .then((sub_id) => {
+      // Generate results URL
+      const results_url = `${sub_id}/results`;
+
+      // Send email using Mailgun
+      return sendEmail(admin_email, sub_id, results_url);
+    })
+    .then(() => {
       db.query('SELECT * FROM users;')
         .then((data) => {
           const templateVars = {
             users: data.rows,
-            successMessage: `Poll created successfully! Poll link: ${sub_id}`
+            successMessage: `Poll created successfully! An email with the poll link and admin link has been sent to ${req.body.admin_email}.`
           };
           res.render('create_poll', templateVars);
         });

@@ -1,3 +1,4 @@
+/*
 UPDATE options
 SET description = CASE
   WHEN id = 10 THEN 'A popular pizza chain known for its stuffed crust'
@@ -18,3 +19,4 @@ SET description = CASE
   ELSE description
 END
 WHERE id BETWEEN 10 AND 24;
+*/

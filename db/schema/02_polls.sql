@@ -3,6 +3,6 @@ CREATE TABLE polls (
   id SERIAL PRIMARY KEY NOT NULL,
   title VARCHAR(255) NOT NULL,
   admin_id INT NOT NULL,
-  sub_id INT NOT NULL,
+  sub_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (admin_id) REFERENCES users(id)
 );
