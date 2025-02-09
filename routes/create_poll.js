@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection');
+const db = require('../db/connection'); // Corrected path
+const crypto = require('crypto'); // Import the crypto module
+const { sendEmail } = require('../public/scripts/email'); // Corrected path
 
 router.get('/', (req, res) => {
   db.query('SELECT * FROM users;')
@@ -13,16 +15,33 @@ router.get('/', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).send('Error fetching users');
     });
 });
 
 router.post('/', (req, res) => {
   const { title, admin_email, option1, option1_desc, option2, option2_desc, option3, option3_desc } = req.body;
 
+  // Validate required fields
+  if (!title || !admin_email) {
+    return res.status(400).send('Title and admin email are required.');
+  }
+
   // Set default descriptions if not provided
   const option1Description = option1_desc || 'No description given';
   const option2Description = option2_desc || 'No description given';
   const option3Description = option3_desc || 'No description given';
+
+  // Generate random strings for poll_link and admin_link
+  const pollId = crypto.randomBytes(16).toString('hex');
+  const adminId = crypto.randomBytes(16).toString('hex');
+
+  // Generate poll and admin links
+  const poll_link = `http://localhost:8080/polls/${pollId}`;
+  const admin_link = `http://localhost:8080/admin/${adminId}`;
+
+  // Create email_values object
+  const email_values = { admin_email, poll_link, admin_link };
 
   // Check if admin email already exists
   const checkUserQuery = `
@@ -53,28 +72,13 @@ router.post('/', (req, res) => {
         VALUES ($1, $2, $3)
         RETURNING id;
       `;
-      const pollValues = [title, admin_id, '']; // Placeholder for sub_id
+      const pollValues = [title, admin_id, poll_link]; // Use the generated poll_link
 
       return db.query(insertPollQuery, pollValues)
-        .then((pollData) => {
-          const poll_id = pollData.rows[0].id;
-          const sub_id = `http://localhost:8080/polls/${poll_id}`; // Generate unique URL
-
-          // Update poll with the generated sub_id
-          const updatePollQuery = `
-            UPDATE polls
-            SET sub_id = $1
-            WHERE id = $2;
-          `;
-          const updateValues = [sub_id, poll_id];
-
-          return db.query(updatePollQuery, updateValues)
-            .then(() => sub_id); // Return the sub_id
-        });
+        .then((pollData) => pollData.rows[0].id); // Return poll_id
     })
-    .then((sub_id) => {
+    .then((poll_id) => {
       // Insert options
-      const poll_id = sub_id.split('/').pop();
       const insertOptionsQuery = `
         INSERT INTO options (title, description, poll_id)
         VALUES
@@ -88,21 +92,26 @@ router.post('/', (req, res) => {
         option3, option3Description, poll_id
       ];
 
-      return db.query(insertOptionsQuery, optionsValues)
-        .then(() => sub_id); // Return the sub_id
+      return db.query(insertOptionsQuery, optionsValues);
     })
-    .then((sub_id) => {
-      db.query('SELECT * FROM users;')
+    .then(() => {
+      // Send email using sendEmail function
+      return sendEmail(email_values)
+        .then(() => {
+          console.log('Email sent successfully!');
+          return db.query('SELECT * FROM users;');
+        })
         .then((data) => {
           const templateVars = {
             users: data.rows,
-            successMessage: `Poll created successfully! Poll link: ${sub_id}`
+            successMessage: `Poll created successfully!
+            \nPoll link: ${email_values.poll_link} \nAdmin link: ${email_values.admin_link} \nAdmin email: ${email_values.admin_email}`
           };
           res.render('create_poll', templateVars);
         });
     })
     .catch((err) => {
-      console.log(err);
+      console.error('Error creating poll:', err);
       res.status(500).send('Error creating poll');
     });
 });
