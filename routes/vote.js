@@ -6,7 +6,7 @@ const db = require('../db/connection');
 router.get('/', (req, res) => {
   console.log('vote: fire!');
 
-  const pollId = req.query.pollId || 3;  // change as needed
+  const pollId = req.query.pollId || 1;  // change as needed
 
   const query = `
     SELECT polls.id AS poll_id, polls.title AS poll_title,
@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
   // Convert the string to an array of integers
   const orderArray = orderStr.split(',').map(num => parseInt(num, 10));
 
-  // In a real app, get the user id from the session.
+  // Do we need this ?
   const userId = 1;
   // Capture the poll id from the submitted form data
   const pollId = parseInt(req.body.poll_id, 10);
