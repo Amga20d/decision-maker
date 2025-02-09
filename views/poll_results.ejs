@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poll Results</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <h1>Poll Results</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Option</th>
+        <th>Borda Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% rankings.forEach((option, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= option.option_title %></td>
+          <td><%= option.borda_score %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

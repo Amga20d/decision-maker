@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Voting Poll</title>
+  <!-- Base CSS -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" />
+  <link rel="stylesheet" href="/styles/main.css" />
+  <link rel="stylesheet" href="/styles/layout.css" />
+  <!-- jQuery UI CSS from CDN -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <style>
+    #sortable {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 300px;
+    }
+    #sortable li {
+      margin: 0 0 4px 0;
+      padding: 8px;
+      font-size: 16px;
+      background-color: #F0F0F0;
+      border: 1px solid #CCCCCC;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+  <h1>Voting Poll Here!</h1>
+  <!-- Display poll title from the DB -->
+  <h2><%= poll.title %></h2>
+  <p>Drag and drop the options to rank your choices:</p>
+
+  <!-- Wrap the sortable list in a form -->
+  <form id="voteForm" method="POST" action="/vote">
+    <!-- Hidden field to capture the poll id -->
+    <input type="hidden" name="poll_id" value="<%= poll.id %>" />
+
+    <ul id="sortable">
+      <% poll.options.forEach(function(option) { %>
+        <!-- Use the actual option id as the element id and include the fixed order as data-fixed -->
+        <li id="<%= option.id %>" data-fixed="<%= option.fixed %>">
+          <strong><%= option.title %></strong> - <%= option.description %>
+        </li>
+      <% }); %>
+    </ul>
+    <!-- Hidden input to store the computed ranking array -->
+    <input type="hidden" name="order" id="orderInput" value="">
+    <button type="submit">Submit Vote</button>
+  </form>
+
+  <!-- Include jQuery and jQuery UI -->
+  <script src="/vendor/jquery-3.0.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    $(function() {
+      $("#sortable").sortable();
+      $("#sortable").disableSelection();
+
+      // When the form is submitted, compute the ranking array.
+      $("#voteForm").on("submit", function() {
+        // Build a mapping: option id -> user's rank (position in current order)
+        let rankingMap = {};
+        $("#sortable li").each(function(index, li){
+          let id = $(li).attr("id");
+          rankingMap[id] = index + 1; // user's rank (1-indexed)
+        });
+
+        // Now, create an array ordered by the fixed order.
+        let rankingArray = [];
+        // Iterate over all list items; use the data-fixed attribute to order them.
+        $("#sortable li").each(function() {
+          let fixed = parseInt($(this).data("fixed"), 10);
+          let id = $(this).attr("id");
+          rankingArray.push({ fixed: fixed, userRank: rankingMap[id] });
+        });
+        // Sort by the fixed order (ascending)
+        rankingArray.sort((a, b) => a.fixed - b.fixed);
+        // Build the final ranking array: each element is the user rank for the option in that fixed position.
+        let finalRanking = rankingArray.map(item => item.userRank);
+        // Set the hidden input to the comma-separated ranking array
+        $("#orderInput").val(finalRanking.join(","));
+      });
+    });
+  </script>
+</body>
+</html>
