@@ -100,7 +100,7 @@ router.post('/', (req, res) => {
     })
     .then(() => {
       // Send email using sendEmail function
-      return sendEmail(email_values)
+      return sendEmail(email_values, true)
         .then(() => {
           console.log('Email sent successfully!');
           return db.query('SELECT * FROM users;');
