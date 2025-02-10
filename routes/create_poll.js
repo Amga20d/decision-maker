@@ -36,12 +36,16 @@ router.post('/', (req, res) => {
   const pollId = crypto.randomBytes(16).toString('hex');
   const adminId = crypto.randomBytes(16).toString('hex');
 
-  // Generate poll and admin links
-  const poll_link = `http://localhost:8080/polls/${pollId}`;
-  const admin_link = `http://localhost:8080/admin/${adminId}`;
+  // Store only the random string in the database
+  const poll_link = pollId; // Store only the unique string
+  const admin_link = adminId; // Store only the unique string
+
+  // Generate full URLs for email
+  const pollUrl = `http://localhost:8080/polls/${poll_link}`;
+  const adminUrl = `http://localhost:8080/admin/${admin_link}`;
 
   // Create email_values object
-  const email_values = { admin_email, poll_link, admin_link };
+  const email_values = { admin_email, poll_link: pollUrl, admin_link: adminUrl };
 
   // Check if admin email already exists
   const checkUserQuery = `
@@ -68,11 +72,11 @@ router.post('/', (req, res) => {
     .then((admin_id) => {
       // Insert new poll
       const insertPollQuery = `
-        INSERT INTO polls (title, admin_id, sub_id)
-        VALUES ($1, $2, $3)
+        INSERT INTO polls (title, admin_id, poll_link, admin_link)
+        VALUES ($1, $2, $3, $4)
         RETURNING id;
       `;
-      const pollValues = [title, admin_id, poll_link]; // Use the generated poll_link
+      const pollValues = [title, admin_id, poll_link, admin_link]; // Now includes poll_link and admin_link
 
       return db.query(insertPollQuery, pollValues)
         .then((pollData) => pollData.rows[0].id); // Return poll_id
