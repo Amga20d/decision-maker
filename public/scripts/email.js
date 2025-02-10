@@ -2,7 +2,6 @@ const formData = require('form-data');
 const Mailgun = require('mailgun.js');
 const mailgun = new Mailgun(formData);
 
-// Use environment variables for Mailgun API key and domain
 const mg = mailgun.client({ username: 'api', key: process.env.MAILGUN_API_KEY });
 
 const sendEmail = function(email_values) {
@@ -15,7 +14,7 @@ const sendEmail = function(email_values) {
 
   return mg.messages.create(process.env.MAILGUN_DOMAIN, {
     from: `Poll Creator <mailgun@${process.env.MAILGUN_DOMAIN}>`,
-    to: [admin_email], // Ensure this is an array
+    to: [admin_email],
     subject: 'Poll Links',
     text: `Your poll has been created successfully!\n\nSubmission link (share your poll): ${poll_link}\nAdmin link (view results): ${admin_link}`,
     html: `
