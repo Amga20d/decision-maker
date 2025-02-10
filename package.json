@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "db:reset": "node bin/resetdb.js",
-    "server": "nodemon -L --ignore public/",
-    "sass": "sass --watch --no-source-map ./styles:./public/styles",
-    "local": "concurrently 'npm:server' 'npm:sass'"
-  },
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node server.js",
+  "db:reset": "node bin/resetdb.js",
+  "server": "nodemon --watch server.js",
+  "sass": "sass --watch ./styles:./public/styles",
+  "local": "concurrently \"npm:server\" \"npm:sass\""
+},
   "author": "Lighthouse Labs",
   "license": "ISC",
   "dependencies": {
