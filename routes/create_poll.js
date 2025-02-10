@@ -20,17 +20,23 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { title, admin_email, option1, option1_desc, option2, option2_desc, option3, option3_desc } = req.body;
+  const { title, admin_email } = req.body;
 
-  // Validate required fields
-  if (!title || !admin_email) {
-    return res.status(400).send('Title and admin email are required.');
+  // Collect dynamic options (up to 10)
+  const options = [];
+  let i = 1;
+  while (req.body[`option${i}`]) {
+    const optionTitle = req.body[`option${i}`];
+    const optionDescription = req.body[`option${i}_desc`] || 'No description given';
+    options.push({ title: optionTitle, description: optionDescription });
+    i++;
+    if (i > 10) break; // Limit to 10 options
   }
 
-  // Set default descriptions if not provided
-  const option1Description = option1_desc || 'No description given';
-  const option2Description = option2_desc || 'No description given';
-  const option3Description = option3_desc || 'No description given';
+  // Validate required fields
+  if (!title || !admin_email || options.length === 0) {
+    return res.status(400).send('Title, admin email, and at least one option are required.');
+  }
 
   // Generate random strings for poll_link and admin_link
   const pollId = crypto.randomBytes(16).toString('hex');
@@ -82,19 +88,16 @@ router.post('/', (req, res) => {
         .then((pollData) => pollData.rows[0].id);
     })
     .then((poll_id) => {
-      // Insert options
-      const insertOptionsQuery = `
-        INSERT INTO options (title, description, poll_id)
-        VALUES
-        ($1, $2, $3),
-        ($4, $5, $6),
-        ($7, $8, $9);
-      `;
-      const optionsValues = [
-        option1, option1Description, poll_id,
-        option2, option2Description, poll_id,
-        option3, option3Description, poll_id
-      ];
+      // Dynamically construct the insert options query
+      let insertOptionsQuery = 'INSERT INTO options (title, description, poll_id) VALUES ';
+      const optionsPlaceholders = options.map((_, index) => `($${index * 3 + 1}, $${index * 3 + 2}, $${index * 3 + 3})`).join(', ');
+      insertOptionsQuery += optionsPlaceholders;
+
+      // Flatten options into a single array with poll_id
+      const optionsValues = options.reduce((acc, option) => {
+        acc.push(option.title, option.description, poll_id);
+        return acc;
+      }, []);
 
       return db.query(insertOptionsQuery, optionsValues);
     })
@@ -109,7 +112,7 @@ router.post('/', (req, res) => {
           const templateVars = {
             users: data.rows,
             successMessage: `Poll created successfully!
-            \nPoll link: ${email_values.poll_link} \nAdmin link: ${email_values.admin_link} \nAdmin email: ${email_values.admin_email}`
+            Links have been emailed to\nAdmin email: ${email_values.admin_email}`
           };
           res.render('create_poll', templateVars);
         });
