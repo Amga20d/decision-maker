@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db/connection'); // Corrected path
-const crypto = require('crypto'); // Import the crypto module
-const { sendEmail } = require('../public/scripts/email'); // Corrected path
+const db = require('../db/connection');
+const crypto = require('crypto');
+const { sendEmail } = require('../public/scripts/email');
 
 router.get('/', (req, res) => {
   db.query('SELECT * FROM users;')
@@ -37,8 +37,8 @@ router.post('/', (req, res) => {
   const adminId = crypto.randomBytes(16).toString('hex');
 
   // Store only the random string in the database
-  const poll_link = pollId; // Store only the unique string
-  const admin_link = adminId; // Store only the unique string
+  const poll_link = pollId;
+  const admin_link = adminId;
 
   // Generate full URLs for email
   const pollUrl = `http://localhost:8080/polls/${poll_link}`;
@@ -76,10 +76,10 @@ router.post('/', (req, res) => {
         VALUES ($1, $2, $3, $4)
         RETURNING id;
       `;
-      const pollValues = [title, admin_id, poll_link, admin_link]; // Now includes poll_link and admin_link
+      const pollValues = [title, admin_id, poll_link, admin_link];
 
       return db.query(insertPollQuery, pollValues)
-        .then((pollData) => pollData.rows[0].id); // Return poll_id
+        .then((pollData) => pollData.rows[0].id);
     })
     .then((poll_id) => {
       // Insert options
