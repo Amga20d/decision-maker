@@ -2,10 +2,10 @@ body {
   height: 100vh;
   background: linear-gradient(
     227deg,
-    rgba(163, 208, 219, 1) 25%,
-    rgb(163, 187, 219) 50%,
-    rgb(167, 163, 219) 75%,
-    rgb(180, 163, 219) 100%,
+    rgb(109, 51, 51) 25%,
+    rgb(53, 54, 46) 50%,
+    rgb(80, 85, 67) 75%,
+    rgb(78, 80, 57) 100%,
   );
   display: flex;
   flex-direction: column;
@@ -14,8 +14,10 @@ body {
 header {
   height: 10vh;
   width: 100%;
-  background-color: #e791e7;
-  color: rgb(4, 102, 9);
+  background-color: #131212;
+  color: rgb(0, 0, 0);
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  border-bottom: solid 1px #ffffff;
   padding: 0em 1.5em;
   display: flex;
   justify-content: center;
@@ -28,13 +30,16 @@ header {
 }
 
 h1{
+  color: rgb(0, 0, 0);
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
   align-self: center;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #main-container {
   align-self: center;
-  background-color: #f8f8f8;
+  background-color: #131212;
+  border: solid 1px #ffffff;
   width: 80vw;
   height: 70vh;
   border-radius: 5%;
@@ -49,9 +54,11 @@ h1{
     summary {
       width: 60%;
       padding: 1em;
+      color: #ffffff;
       p{
-        font-size: larger;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 25px;
+        font-weight: 100;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       }
     }
     img {
@@ -60,17 +67,19 @@ h1{
       margin: .5em;
       align-self: center;
       border-radius: 5%;
-      background-color: tomato;
+      color: #ffffff;
+      background-color: #131212;
+      border: solid 1px #ffffff;
     }
   }
 
   button {
     align-self: center;
-    background-color: lightgreen;
-    color: navy;
+    background-color: #131212;
+    color: #ffffff;
     height: 25%;
     width: 60%;
-    border: none;
+    border: solid 1px #ffffff;
     border-radius: 5%;
     padding: .5em;
     margin: 1em;
@@ -82,15 +91,14 @@ h1{
 }
 
 footer {
-  background-color: #e791e7;
-  color: rgb(4, 102, 9);
+  background-color: #131212;
+  color: rgb(0, 0, 0);
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
   text-align: center;
   margin-top: 1em;
   font-size: 14px;
 }
 
 button:hover {
-  background-color: darkgreen;
-  color: white;
   transform: scale(1.05);
 }

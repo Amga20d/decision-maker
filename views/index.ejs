@@ -23,13 +23,12 @@
   <div id="main-container">
     <div id="container-top">
       <summary>
-        <p>You can easily Create, Share, and vote on the hardest choices with an email and a burning question. Get up-to-date results via email each time a vote is submitted and tallied  based on each voter's rankings. The hardest questions have a simple answer, Decision Maker.</p>
+        <p>You can easily <i>Create</i>, <i>share</i>, and <i>vote</i> on the hardest choices with an email and a burning question. Get up-to-date results via email each time a vote is submitted and tallied  based on each voter's rankings. The hardest questions have a simple answer:<br> <i><b>Decision Maker</b></i>.</p>
       </summary>
       <img src="" alt="Image of example poll (temporary img)">
     </div>
-
-      <button><h2>Create A Poll!</h2></button>
-
+    <form id="start" method="GET" action="/create_poll"></form>
+    <button type="submit" form="start"><h1>Create A Poll!</h1></button>
   </div>
 
   <footer><%- include('partials/_footer')%></footer>
