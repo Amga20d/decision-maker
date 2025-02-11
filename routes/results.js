@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db/connection');
 
 router.get('/', (req, res) => {
-  const pollId = 3; // change as needed
+  const pollId = 1; // change as needed
 
   const query = `
     WITH ordered_options AS (

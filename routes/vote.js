@@ -7,7 +7,7 @@ const { sendEmail } = require('../public/scripts/email');
 router.get('/', (req, res) => {
   console.log('vote: fire!');
 
-  const pollId = req.query.pollId || 4;  // change as needed
+  const pollId = req.query.pollId || 1;  // change as needed
 
   const query = `
     SELECT polls.id AS poll_id, polls.title AS poll_title,
