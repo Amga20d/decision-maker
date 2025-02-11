@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
+const crypto = require('crypto');
+const { sendEmail } = require('../public/scripts/email');
 
 router.get('/', (req, res) => {
   db.query('SELECT * FROM users;')
@@ -13,16 +15,43 @@ router.get('/', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.status(500).send('Error fetching users');
     });
 });
 
 router.post('/', (req, res) => {
-  const { title, admin_email, option1, option1_desc, option2, option2_desc, option3, option3_desc } = req.body;
+  const { title, admin_email } = req.body;
 
-  // Set default descriptions if not provided
-  const option1Description = option1_desc || 'No description given';
-  const option2Description = option2_desc || 'No description given';
-  const option3Description = option3_desc || 'No description given';
+  // Collect dynamic options (up to 10)
+  const options = [];
+  let i = 1;
+  while (req.body[`option${i}`]) {
+    const optionTitle = req.body[`option${i}`];
+    const optionDescription = req.body[`option${i}_desc`] || 'No description given';
+    options.push({ title: optionTitle, description: optionDescription });
+    i++;
+    if (i > 10) break; // Limit to 10 options
+  }
+
+  // Validate required fields
+  if (!title || !admin_email || options.length === 0) {
+    return res.status(400).send('Title, admin email, and at least one option are required.');
+  }
+
+  // Generate random strings for poll_link and admin_link
+  const pollId = crypto.randomBytes(16).toString('hex');
+  const adminId = crypto.randomBytes(16).toString('hex');
+
+  // Store only the random string in the database
+  const poll_link = pollId;
+  const admin_link = adminId;
+
+  // Generate full URLs for email
+  const pollUrl = `http://localhost:8080/polls/${poll_link}`;
+  const adminUrl = `http://localhost:8080/admin/${admin_link}`;
+
+  // Create email_values object
+  const email_values = { admin_email, poll_link: pollUrl, admin_link: adminUrl };
 
   // Check if admin email already exists
   const checkUserQuery = `
@@ -49,60 +78,47 @@ router.post('/', (req, res) => {
     .then((admin_id) => {
       // Insert new poll
       const insertPollQuery = `
-        INSERT INTO polls (title, admin_id, sub_id)
-        VALUES ($1, $2, $3)
+        INSERT INTO polls (title, admin_id, poll_link, admin_link)
+        VALUES ($1, $2, $3, $4)
         RETURNING id;
       `;
-      const pollValues = [title, admin_id, '']; // Placeholder for sub_id
+      const pollValues = [title, admin_id, poll_link, admin_link];
 
       return db.query(insertPollQuery, pollValues)
-        .then((pollData) => {
-          const poll_id = pollData.rows[0].id;
-          const sub_id = `http://localhost:8080/polls/${poll_id}`; // Generate unique URL
-
-          // Update poll with the generated sub_id
-          const updatePollQuery = `
-            UPDATE polls
-            SET sub_id = $1
-            WHERE id = $2;
-          `;
-          const updateValues = [sub_id, poll_id];
-
-          return db.query(updatePollQuery, updateValues)
-            .then(() => sub_id); // Return the sub_id
-        });
+        .then((pollData) => pollData.rows[0].id);
     })
-    .then((sub_id) => {
-      // Insert options
-      const poll_id = sub_id.split('/').pop();
-      const insertOptionsQuery = `
-        INSERT INTO options (title, description, poll_id)
-        VALUES
-        ($1, $2, $3),
-        ($4, $5, $6),
-        ($7, $8, $9);
-      `;
-      const optionsValues = [
-        option1, option1Description, poll_id,
-        option2, option2Description, poll_id,
-        option3, option3Description, poll_id
-      ];
+    .then((poll_id) => {
+      // Dynamically construct the insert options query
+      let insertOptionsQuery = 'INSERT INTO options (title, description, poll_id) VALUES ';
+      const optionsPlaceholders = options.map((_, index) => `($${index * 3 + 1}, $${index * 3 + 2}, $${index * 3 + 3})`).join(', ');
+      insertOptionsQuery += optionsPlaceholders;
 
-      return db.query(insertOptionsQuery, optionsValues)
-        .then(() => sub_id); // Return the sub_id
+      // Flatten options into a single array with poll_id
+      const optionsValues = options.reduce((acc, option) => {
+        acc.push(option.title, option.description, poll_id);
+        return acc;
+      }, []);
+
+      return db.query(insertOptionsQuery, optionsValues);
     })
-    .then((sub_id) => {
-      db.query('SELECT * FROM users;')
+    .then(() => {
+      // Send email using sendEmail function
+      return sendEmail(email_values, true)
+        .then(() => {
+          console.log('Email sent successfully!');
+          return db.query('SELECT * FROM users;');
+        })
         .then((data) => {
           const templateVars = {
             users: data.rows,
-            successMessage: `Poll created successfully! Poll link: ${sub_id}`
+            successMessage: `Poll created successfully!
+            Links have been emailed to\nAdmin email: ${email_values.admin_email}`
           };
           res.render('create_poll', templateVars);
         });
     })
     .catch((err) => {
-      console.log(err);
+      console.error('Error creating poll:', err);
       res.status(500).send('Error creating poll');
     });
 });
