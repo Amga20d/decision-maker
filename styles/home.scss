@@ -2,11 +2,16 @@ body {
   height: 100vh;
   background: linear-gradient(
     227deg,
-    rgb(109, 51, 51) 25%,
-    rgb(53, 54, 46) 50%,
-    rgb(80, 85, 67) 75%,
-    rgb(78, 80, 57) 100%,
+    rgb(120, 156, 165) 0%,
+    rgb(90, 105, 155) 20%,
+    rgb(73, 84, 131) 34%,
+    rgb(83, 139, 128) 59%,
+    rgb(69, 114, 126) 74%,
+    rgb(68, 116, 128) 100%
   );
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -14,13 +19,11 @@ body {
 header {
   height: 10vh;
   width: 100%;
-  background-color: #131212;
-  color: rgb(0, 0, 0);
-  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  color: #ffffff;
   border-bottom: solid 1px #ffffff;
   padding: 0em 1.5em;
   display: flex;
-  justify-content: center;
+  justify-content: baseline;
   align-items: center;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   font-size: x-large;
@@ -30,17 +33,14 @@ header {
 }
 
 h1{
-  color: rgb(0, 0, 0);
-  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  color: #ffffff;
   align-self: center;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #main-container {
   align-self: center;
-  background-color: #131212;
-  border: solid 1px #ffffff;
-  width: 80vw;
+  width: 90vw;
   height: 70vh;
   border-radius: 5%;
   display: flex;
@@ -52,9 +52,11 @@ h1{
     display: flex;
     flex: 1;
     summary {
-      width: 60%;
+      width: 50%;
       padding: 1em;
       color: #ffffff;
+      border-right: solid 1px #ffffff;
+      border-top: solid 1px #ffffff;
       p{
         font-size: 25px;
         font-weight: 100;
@@ -62,20 +64,28 @@ h1{
       }
     }
     img {
-      height: 90%;
-      width: 40%;
-      margin: .5em;
+      height: 100%;
+      padding: 1em;
+
       align-self: center;
-      border-radius: 5%;
       color: #ffffff;
-      background-color: #131212;
-      border: solid 1px #ffffff;
+      border-top: solid 1px #ffffff;
     }
   }
 
   button {
     align-self: center;
-    background-color: #131212;
+    background: linear-gradient(
+    227deg,
+    rgb(163, 120, 165) 0%,
+    rgb(142, 90, 155) 20%,
+    rgb(131, 87, 73) 34%,
+    rgb(107, 126, 177) 59%,
+    rgb(89, 60, 112) 74%,
+    rgb(68, 116, 128) 100%
+  );
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
     color: #ffffff;
     height: 25%;
     width: 60%;
@@ -91,9 +101,7 @@ h1{
 }
 
 footer {
-  background-color: #131212;
-  color: rgb(0, 0, 0);
-  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+  color: rgb(255, 255, 255);
   text-align: center;
   margin-top: 1em;
   font-size: 14px;
@@ -101,4 +109,16 @@ footer {
 
 button:hover {
   transform: scale(1.05);
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
