@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/connection');
+const { sendEmail } = require('../public/scripts/email');
 
 // GET route to display the poll
 router.get('/', (req, res) => {
   console.log('vote: fire!');
 
-  const pollId = req.query.pollId || 3;  // change as needed
+  const pollId = req.query.pollId || 4;  // change as needed
 
   const query = `
     SELECT polls.id AS poll_id, polls.title AS poll_title,
@@ -58,6 +59,22 @@ router.post('/', (req, res) => {
   // Capture the poll id from the submitted form data
   const pollId = parseInt(req.body.poll_id, 10);
 
+  const queryStr = `
+  SELECT users.email as email, polls.admin_link as link
+  FROM polls
+  JOIN users ON admin_id = users.id
+  WHERE polls.id = $1;`;
+
+  const queryValues = [4];
+  db.query(queryStr,queryValues).then((data) => {
+    const email_values = { admin_email: data.rows[0].email, poll_link: null, admin_link: data.rows[0].link};
+
+    sendEmail(email_values)
+    .then((res) => {
+      console.log(res);
+    })
+  })
+
   // Insert into votes table; votes.rank stores the ranking array.
   const insertQuery = `
     INSERT INTO votes (rank, user_id, poll_id)
@@ -70,7 +87,7 @@ router.post('/', (req, res) => {
       res.redirect('/results');
     })
     .catch(err => {
-      console.error('Error inserting vote', err.stack);
+      console.error('Error inserting vote', err.stack); 
       res.sendStatus(500);
     });
 });
