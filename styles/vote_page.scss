@@ -54,7 +54,18 @@ form#voteForm {
   border-radius: 3px;
   cursor: move;
   transition: background-color 0.3s ease;
+  background: linear-gradient(
+  227deg,
+  rgb(119, 42, 170) 0%,
+  rgb(68, 22, 99) 20%,
+  rgb(192, 94, 155) 59%,
+  rgb(133, 32, 116) 100%
+);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
+
 #sortable li:hover {
-  background-color: #323638;
+  background: #323638;
 }
+
