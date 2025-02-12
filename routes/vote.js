@@ -81,7 +81,6 @@ router.post('/', (req, res) => {
       console.log(res);
     })
   })
-
   // Insert into votes table; votes.rank stores the ranking array.
   const insertQuery = `
     INSERT INTO votes (rank, user_id, poll_id)
@@ -94,6 +93,7 @@ router.post('/', (req, res) => {
       res.redirect('/submitted');
     })
     .catch(err => {
+      console.error('Error inserting vote', err.stack);
       console.error('Error inserting vote', err.stack);
       res.sendStatus(500);
     });

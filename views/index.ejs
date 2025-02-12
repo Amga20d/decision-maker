@@ -10,15 +10,28 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="../styles/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+  <header> <%- include('partials/_header')%></header>
+  <h1>Hard choices Made Easy (cringey slogan here)</h1>
+  <div id="main-container">
+    <div id="container-top">
+      <summary>
+        <p>You can easily <i>Create</i>, <i>share</i>, and <i>vote</i> on the hardest choices with an email and a burning question. Get up-to-date results via email each time a vote is submitted and tallied  based on each voter's rankings.<br><br> The hardest questions have a simple answer:<br><i><b>Decision Maker</b></i></p>
+      </summary>
+      <img src="" alt="Image of example poll (temporary img)">
+    </div>
+    <form id="start" method="GET" action="/create_poll"></form>
+    <button type="submit" form="start"><h1>Create A Poll!</h1></button>
+  </div>
+
+  <footer><%- include('partials/_footer')%></footer>
 </body>
 
 </html>

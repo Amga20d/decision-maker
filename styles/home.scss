@@ -1,0 +1,125 @@
+body {
+  height: 100vh;
+  background: linear-gradient(
+    227deg,
+    rgb(120, 156, 165) 0%,
+    rgb(90, 105, 155) 20%,
+    rgb(73, 84, 131) 34%,
+    rgb(83, 139, 128) 59%,
+    rgb(69, 114, 126) 74%,
+    rgb(68, 116, 128) 100%
+  );
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-content: center;
+}
+
+header {
+  height: 10vh;
+  width: 100%;
+  color: #ffffff;
+  border-bottom: solid 1px #ffffff;
+  padding: 0em 1.5em;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: x-large;
+  i{
+    margin-left: .5em;
+    animation: icon 3s ease infinite;
+  }
+}
+
+h1{
+  color: #ffffff;
+  align-self: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#main-container {
+  align-self: center;
+  width: 90vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  margin-bottom: 5em;
+
+  #container-top {
+    display: flex;
+    flex: 1;
+    summary {
+      width: 50%;
+      padding: 1em;
+      color: #ffffff;
+      border-right: solid 1px #ffffff;
+      border-top: solid 1px #ffffff;
+      p{
+        font-size: 25px;
+        font-weight: 100;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      }
+    }
+    img {
+      height: 100%;
+      padding: 1em;
+      align-self: center;
+      color: #ffffff;
+      border-top: solid 1px #ffffff;
+    }
+  }
+
+  button {
+    align-self: center;
+    background: linear-gradient(
+    227deg,
+    rgb(163, 120, 165) 0%,
+    rgb(142, 90, 155) 20%,
+    rgb(73, 131, 114) 34%,
+    rgb(107, 126, 177) 59%,
+    rgb(89, 60, 112) 74%,
+    rgb(68, 116, 128) 100%
+  );
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+    color: #ffffff;
+    height: 25%;
+    width: 60%;
+    border: solid 1px #ffffff;
+    border-radius: 5%;
+    padding: .5em;
+    margin: 1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+}
+
+footer {
+  color: rgb(255, 255, 255);
+  text-align: center;
+  margin-top: 1em;
+  font-size: 14px;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes gradient {
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+}
+
+@keyframes icon {
+  0% {transform: rotate(-10);}
+  50% {transform: rotate(50deg);}
+  90% {transform: rotate(0);}
+}
