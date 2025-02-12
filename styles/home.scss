@@ -13,7 +13,9 @@ body {
 	animation: gradient 15s ease infinite;
 	height: 100vh;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  align-content: center;
 }
 
 header {
@@ -29,6 +31,7 @@ header {
   font-size: x-large;
   i{
     margin-left: .5em;
+    animation: icon 3s ease infinite;
   }
 }
 
@@ -42,7 +45,6 @@ h1{
   align-self: center;
   width: 90vw;
   height: 70vh;
-  border-radius: 5%;
   display: flex;
   flex-direction: column;
   padding: 1em;
@@ -66,7 +68,6 @@ h1{
     img {
       height: 100%;
       padding: 1em;
-
       align-self: center;
       color: #ffffff;
       border-top: solid 1px #ffffff;
@@ -79,7 +80,7 @@ h1{
     227deg,
     rgb(163, 120, 165) 0%,
     rgb(142, 90, 155) 20%,
-    rgb(131, 87, 73) 34%,
+    rgb(73, 131, 114) 34%,
     rgb(107, 126, 177) 59%,
     rgb(89, 60, 112) 74%,
     rgb(68, 116, 128) 100%
@@ -112,13 +113,13 @@ button:hover {
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+}
+
+@keyframes icon {
+  0% {transform: rotate(-10);}
+  50% {transform: rotate(50deg);}
+  90% {transform: rotate(0);}
 }
