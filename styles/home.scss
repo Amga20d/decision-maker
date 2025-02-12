@@ -43,41 +43,4 @@ h1{
       border-top: solid 1px #ffffff;
     }
   }
-
-  button {
-    align-self: center;
-    background: linear-gradient(
-    227deg,
-    rgb(163, 120, 165) 0%,
-    rgb(142, 90, 155) 20%,
-    rgb(73, 131, 114) 34%,
-    rgb(107, 126, 177) 59%,
-    rgb(89, 60, 112) 74%,
-    rgb(68, 116, 128) 100%
-  );
-  background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-    color: #ffffff;
-    height: 25%;
-    width: 60%;
-    border: solid 1px #ffffff;
-    border-radius: 5%;
-    padding: .5em;
-    margin: 1em;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-  }
-
-}
-
-footer {
-  color: rgb(255, 255, 255);
-  text-align: center;
-  margin-top: 1em;
-  font-size: 14px;
-}
-
-button:hover {
-  transform: scale(1.05);
 }
