@@ -6,13 +6,17 @@
   <!-- Base CSS -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css">
   <link rel="stylesheet" href="/styles/vote_page.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/body.css">
+  <link rel="stylesheet" href="../styles/button.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- jQuery UI CSS from CDN -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 <body>
+  <header> <%- include('partials/_header')%></header>
   <h1>Decision Maker Voting Poll</h1>
   <!-- Display poll title fetched from the database -->
   <h2><%= poll.title %></h2>
@@ -35,7 +39,7 @@
     <input type="hidden" name="order" id="orderInput" value="">
     <button type="submit">Submit Vote</button>
   </form>
-
+  <footer><%- include('partials/_footer')%></footer>
   <!-- Include jQuery and jQuery UI -->
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
