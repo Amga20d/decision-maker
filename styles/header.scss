@@ -1,0 +1,22 @@
+header {
+  height: 10vh;
+  width: 100%;
+  color: #ffffff;
+  border-bottom: solid 1px #ffffff;
+  padding: 0em 1.5em;
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: x-large;
+  i{
+    margin-left: .5em;
+    animation: icon 3s ease infinite;
+  }
+  
+  @keyframes icon {
+    0% {transform: rotate(-10);}
+    50% {transform: rotate(50deg);}
+    90% {transform: rotate(0);}
+  }
+}

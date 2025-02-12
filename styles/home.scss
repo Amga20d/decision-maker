@@ -1,38 +1,8 @@
 body {
-  height: 100vh;
-  background: linear-gradient(
-    227deg,
-    rgb(120, 156, 165) 0%,
-    rgb(90, 105, 155) 20%,
-    rgb(73, 84, 131) 34%,
-    rgb(83, 139, 128) 59%,
-    rgb(69, 114, 126) 74%,
-    rgb(68, 116, 128) 100%
-  );
-  background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
   display: flex;
   flex: 1;
   flex-direction: column;
   align-content: center;
-}
-
-header {
-  height: 10vh;
-  width: 100%;
-  color: #ffffff;
-  border-bottom: solid 1px #ffffff;
-  padding: 0em 1.5em;
-  display: flex;
-  justify-content: baseline;
-  align-items: center;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font-size: x-large;
-  i{
-    margin-left: .5em;
-    animation: icon 3s ease infinite;
-  }
 }
 
 h1{
@@ -110,16 +80,4 @@ footer {
 
 button:hover {
   transform: scale(1.05);
-}
-
-@keyframes gradient {
-	0% {background-position: 0% 50%;}
-	50% {background-position: 100% 50%;}
-	100% {background-position: 0% 50%;}
-}
-
-@keyframes icon {
-  0% {transform: rotate(-10);}
-  50% {transform: rotate(50deg);}
-  90% {transform: rotate(0);}
 }
