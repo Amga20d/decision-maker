@@ -29,6 +29,10 @@ const create_pollRoutes = require('./routes/create_poll');
 const linkRoutes = require('./routes/links');
 const votingRoutes = require('./routes/vote');
 const resultRoutes = require('./routes/results.js');
+const adminRoutes = require('./routes/admin.js');
+const pollsRoutes = require('./routes/polls.js');
+const submittedRoutes = require('./routes/submitted.js');
+
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -41,6 +45,9 @@ app.use('/create_poll', create_pollRoutes);
 app.use('/links', linkRoutes);
 app.use('/vote', votingRoutes);
 app.use('/results', resultRoutes);
+app.use('/admin', adminRoutes);
+app.use('/polls', pollsRoutes);
+app.use('/submitted', submittedRoutes);
 
 // Note: mount other resources here, using the same pattern above
 
