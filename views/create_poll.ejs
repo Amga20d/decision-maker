@@ -5,83 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Poll</title>
   <link rel="stylesheet" href="/styles/create_poll.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/body.css">
+  <link rel="stylesheet" href="../styles/button.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
+
 <body>
-  <header>
-    <h2 class="left">Decision Maker</h2>
-    <h2 class="center">Create A Poll</h2>
-  </header>
+  <header> <%- include('partials/_header')%></header>
 
   <% if (successMessage) { %>
     <p class="success-message"><%= successMessage %></p>
   <% } %>
 
-  <form action="/create_poll" method="POST">
-    <!-- Poll Title and Admin Email Group -->
-    <div class="poll-info">
-      <div class="input-pair">
-        <label for="title">Poll Title</label>
-        <input type="text" id="title" name="title" required>
+  <div id="main-container">
+    <form action="/create_poll" method="POST">
+      <!-- Poll Title and Admin Email Group -->
+      <div class="poll-info">
+        <div class="input-pair">
+          <label for="title">Poll Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+        <div class="input-pair">
+          <label for="admin_email">Admin Email</label>
+          <input type="email" id="admin_email" name="admin_email" required>
+        </div>
       </div>
-      <div class="input-pair">
-        <label for="admin_email">Admin Email</label>
-        <input type="email" id="admin_email" name="admin_email" required>
+
+      <!-- Option 1 -->
+      <div class="option-group blue">
+        <label for="option1">Option 1</label>
+        <input type="text" id="option1" name="option1" required>
+        <label for="option1_desc">Description</label>
+        <input type="text" id="option1_desc" name="option1_desc">
       </div>
-    </div>
 
-    <!-- Option 1 -->
-    <div class="option-group blue">
-      <label for="option1">Option 1</label>
-      <input type="text" id="option1" name="option1" required>
-      <label for="option1_desc">Description</label>
-      <input type="text" id="option1_desc" name="option1_desc">
-    </div>
+      <!-- Option 2 -->
+      <div class="option-group green">
+        <label for="option2">Option 2</label>
+        <input type="text" id="option2" name="option2" required>
+        <label for="option2_desc">Description</label>
+        <input type="text" id="option2_desc" name="option2_desc">
+      </div>
 
-    <!-- Option 2 -->
-    <div class="option-group green">
-      <label for="option2">Option 2</label>
-      <input type="text" id="option2" name="option2" required>
-      <label for="option2_desc">Description</label>
-      <input type="text" id="option2_desc" name="option2_desc">
-    </div>
+      <!-- Option 3 -->
+      <div class="option-group blue">
+        <label for="option3">Option 3</label>
+        <input type="text" id="option3" name="option3" required>
+        <label for="option3_desc">Description</label>
+        <input type="text" id="option3_desc" name="option3_desc">
+      </div>
 
-    <!-- Option 3 -->
-    <div class="option-group blue">
-      <label for="option3">Option 3</label>
-      <input type="text" id="option3" name="option3" required>
-      <label for="option3_desc">Description</label>
-      <input type="text" id="option3_desc" name="option3_desc">
-    </div>
+      <button type="button" id="add-option">Add Option</button>
 
-    <button type="button" id="add-option">Add Option</button>
+      <!-- Submit Button -->
+      <button type="submit">Create Poll</button>
+    </form>
+  </div>
 
-    <!-- Submit Button -->
-    <button type="submit">Create Poll</button>
-  </form>
-
-  <footer>
-    <p>&copy; 2025 Decision Maker | All Rights Reserved</p>
-  </footer>
-
-  <script>
-    document.getElementById("add-option").addEventListener("click", function() {
-      const optionsContainer = document.querySelector("form");
-      const optionCount = document.querySelectorAll(".option-group").length + 1;
-
-      if (optionCount > 10) return;
-
-      const optionGroup = document.createElement("div");
-      optionGroup.className = `option-group ${optionCount % 2 === 0 ? 'green' : 'blue'}`;
-
-      optionGroup.innerHTML = `
-        <label for="option${optionCount}">Option ${optionCount}</label>
-        <input type="text" id="option${optionCount}" name="option${optionCount}" required>
-        <label for="option${optionCount}_desc">Description</label>
-        <input type="text" id="option${optionCount}_desc" name="option${optionCount}_desc">
-      `;
-
-      optionsContainer.insertBefore(optionGroup, document.getElementById("add-option"));
-    });
-  </script>
+  <footer><%- include('partials/_footer')%></footer>
 </body>
+
+<script>
+  document.getElementById("add-option").addEventListener("click", function() {
+    const optionsContainer = document.querySelector("form");
+    const optionCount = document.querySelectorAll(".option-group").length + 1;
+
+    if (optionCount > 10) return;
+
+    const optionGroup = document.createElement("div");
+    optionGroup.className = `option-group ${optionCount % 2 === 0 ? 'green' : 'blue'}`;
+
+    optionGroup.innerHTML = `
+      <label for="option${optionCount}">Option ${optionCount}</label>
+      <input type="text" id="option${optionCount}" name="option${optionCount}" required>
+      <label for="option${optionCount}_desc">Description</label>
+      <input type="text" id="option${optionCount}_desc" name="option${optionCount}_desc">
+    `;
+
+    optionsContainer.insertBefore(optionGroup, document.getElementById("add-option"));
+  });
+</script>
 </html>

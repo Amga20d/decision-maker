@@ -1,46 +1,12 @@
 // Global Body Styles
 body {
-  background: linear-gradient(
-    227deg,
-    rgb(120, 156, 165) 0%,
-    rgb(90, 105, 155) 20%,
-    rgb(73, 84, 131) 34%,
-    rgb(83, 139, 128) 59%,
-    rgb(69, 114, 126) 74%,
-    rgb(68, 116, 128) 100%
-  );
-  background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-  color: navy;
-  font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  width: 100vw;
   margin: 0;
 }
 
 // Header Styling
-header {
-  background: linear-gradient(
-    227deg,
-    #e6d5f9 20%,
-    #d8b9f9 40%,
-    #cc9df8 60%,
-    #bf81f7 80%,
-    #b166f7 100%
-  );
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  color: navy;
-  text-align: center;
-  padding: 8px 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 header h2 {
   font-size: 20px;
 }
@@ -50,17 +16,19 @@ header a {
   padding: 6px 12px;
 }
 
-
+#main-container {
+  display: flex;
+  justify-content: center;
+  overflow:auto;
+}
 // Poll Creation Box
 form {
-  background-color: hsl(290, 100%, 82%);
   width: 80%;
   max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1em;
   border-radius: 8px;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 20px;
 }
@@ -76,12 +44,10 @@ form {
   border: 1px solid transparent;
   background: linear-gradient(
     227deg,
-    rgb(253, 216, 53) 0%,
-    rgb(255, 229, 153) 20%,
-    rgb(255, 218, 103) 40%,
-    rgb(255, 207, 77) 60%,
-    rgb(255, 196, 51) 80%,
-    rgb(255, 185, 25) 100%
+    rgb(224, 210, 84) 0%,
+    rgb(224, 222, 60) 20%,
+    rgb(221, 173, 69) 80%,
+    rgb(207, 167, 34) 100%
   );
   background-size: 400% 400%;
   animation: gradient 7.5s ease infinite;
@@ -117,11 +83,9 @@ form {
   background: linear-gradient(
     227deg,
     #c8e6c9 0%,
-    #b2d6b0 20%,
-    #9cc698 40%,
-    #86b580 60%,
-    #70a569 80%,
-    #5a9553 100%
+    #84c480 20%,
+    #6dcf93 60%,
+    #4ca863 100%
   );
   background-size: 400% 400%;
   animation: gradient 7.5s ease infinite;
@@ -130,11 +94,9 @@ form {
 .option-group:nth-child(even) {
   background: linear-gradient(
     227deg,
-    #b3e5fc 0%,
-    #a2dafd 20%,
-    #8dcfef 40%,
-    #76b4d8 60%,
-    #5f99c2 80%,
+    #87bbd3 0%,
+    #81bee4 20%,
+    #359bd6 60%,
     #487fa6 100%
   );
   background-size: 400% 400%;
@@ -155,82 +117,8 @@ form {
   width: 90%;
   margin: auto;
 }
-
-// Create Poll Button Styling (with hover effect)
-button[type="submit"] {
-  background-color: #0505fd;
-  color: skyblue;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: darkblue;
-  color: white;
-  transform: scale(1.05);
-}
-
-// Add Option Button Styling (with hover effect)
-button[type="button"] {
-  background-color: lightgreen;
-  color: navy;
-  border: none;
-  padding: 8px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-}
-
-button[type="button"]:hover {
-  background-color: darkgreen;
-  color: white;
-  transform: scale(1.05);
-}
-
-// Footer Styling
-footer {
-  background: linear-gradient(
-    227deg,
-    #D8BFD8 0%,
-    #e6d5f9 20%,
-    #d8b9f9 40%,
-    #cc9df8 60%,
-    #bf81f7 80%,
-    #b166f7 100%
-  );
-  background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
-  color: navy;
-  text-align: center;
-  padding: 10px 0;
-  margin-top: auto;
-  font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-
-footer p {
-  margin: 0;
-}
-
 @media (max-width: 768px) {
   form {
     width: 95%;
   }
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
 }
