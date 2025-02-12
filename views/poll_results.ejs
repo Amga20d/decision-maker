@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Poll Results</title>
-  <link rel="stylesheet" href="/styles/main.css">
-  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/create_poll.css">
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/body.css">
+  <link rel="stylesheet" href="../styles/button.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/styles/results_page.css">
 </head>
 <body>
-  <h1>Poll Results</h1>
+  <header> <%- include('partials/_header')%></header>
+  <h1 id="title">Poll Results</h1>
+
   <div class="table-container">
     <table>
       <thead>
@@ -29,5 +35,11 @@
       </tbody>
     </table>
   </div>
+
+  <form id="start" method="GET" action="/create_poll">
+    <h2>Want to make another poll? Click Here!</h2>
+    <button type="submit" form="start"><h1>Create A Poll!</h1></button>
+  </form>
+  <footer><%- include('partials/_footer')%></footer>
 </body>
 </html>

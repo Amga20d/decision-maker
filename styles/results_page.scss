@@ -2,27 +2,23 @@
 
 // Base styles
 body {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f8f8f8;
-  margin: 0;
-  padding: 20px;
-  color: #333;
+  display: flex;
+  flex:1;
 }
 
-h1 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 20px;
+#title {
+  color: #fff;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  align-self: center;
 }
 
 // Table container to center and constrain width
 .table-container {
   max-width: 800px;
   margin: 0 auto;
-  background: #fff;
-  padding: 20px;
+  padding: 1em;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: solid 1px #fff;
 }
 
 // Table styles
@@ -32,9 +28,14 @@ table {
 }
 
 thead {
-  background-color: #3498db;
+  background:linear-gradient(
+    227deg,
+    rgb(53, 56, 80) 0%,
+    rgb(72, 84, 139) 50%,
+    rgb(42, 56, 75) 100%,
+    );
+  animation: gradient 8s ease infinite;
   color: #fff;
-
   th {
     padding: 12px;
     font-size: 18px;
@@ -45,18 +46,43 @@ thead {
 tbody {
   tr {
     border-bottom: 1px solid #ddd;
-    
+
     &:nth-child(even) {
-      background-color: #f2f2f2;
+      background:linear-gradient(
+      227deg,
+      rgb(160, 16, 105) 0%,
+      rgb(153, 38, 109) 50%,
+      rgb(85, 44, 131) 100%,
+      )
     }
-    
+    animation: gradient 8s ease infinite;
     &:hover {
       background-color: #e1f5fe;
     }
   }
-  
+
   td {
     padding: 12px;
-    font-size: 16px;
+    font-size: larger;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #fff;
   }
+}
+
+form {
+  align-self: center;
+}
+
+h2 {
+  align-self: center;
+  color: #fff;
+  font-weight: 300;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+@keyframes gradient {
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
 }

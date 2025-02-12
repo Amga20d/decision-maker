@@ -10,17 +10,30 @@
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="../styles/header.css">
+  <link rel="stylesheet" href="../styles/body.css">
+  <link rel="stylesheet" href="../styles/footer.css">
+  <link rel="stylesheet" href="../styles/button.css">
+  <link rel="stylesheet" href="../styles/subbmitted.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
 </head>
 
 <body>
+  <i class="fa-thin fa-angles-down"></i>
+  <header> <%- include('partials/_header')%></header>
   <h1>Poll Submitted!</h1>
+  <div id="container">
+    <h2>If you want to create your own poll click Here!</h2>
+    <i id="icon" class="fa-light fa-chevron-down"></i>
+    <form id="start" method="GET" action="/create_poll"></form>
+    <button type="submit" form="start"><h1>Create A Poll!</h1></button>
+  </div>
 
-  <h3>If you want to create your own poll click <a href="/create_poll">here!</a></h3>
+
+  <footer><%- include('partials/_footer')%></footer>
 </body>
 
 </html>

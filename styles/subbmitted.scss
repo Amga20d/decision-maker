@@ -1,0 +1,23 @@
+#container{
+  margin: 1em;
+  padding: 1em;
+  display: flex;
+  border: solid 1px #fff;
+  border-bottom: none;
+  border-left: none;
+  flex-direction: column;
+  justify-self: center;
+}
+
+h1 {
+  justify-self: center;
+}
+h1, h2 {
+  color: #fff;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#icon {
+
+  color: orange;
+}
