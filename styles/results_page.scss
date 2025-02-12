@@ -14,11 +14,11 @@ body {
 
 // Table container to center and constrain width
 .table-container {
-  max-width: 800px;
+  max-width: 80vw;
   margin: 0 auto;
   padding: 1em;
-  border-radius: 5px;
   border: solid 1px #fff;
+  border-bottom: none;
 }
 
 // Table styles
@@ -45,7 +45,7 @@ thead {
 
 tbody {
   tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #fff;
 
     &:nth-child(even) {
       background:linear-gradient(
@@ -56,14 +56,11 @@ tbody {
       )
     }
     animation: gradient 8s ease infinite;
-    &:hover {
-      background-color: #e1f5fe;
-    }
   }
 
   td {
     padding: 12px;
-    font-size: larger;
+    font-size:x-large;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: #fff;
   }
@@ -79,7 +76,6 @@ h2 {
   font-weight: 300;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 
 @keyframes gradient {
 	0% {background-position: 0% 50%;}

@@ -12,6 +12,7 @@ h1{
 }
 
 #main-container {
+
   align-self: center;
   width: 90vw;
   height: 70vh;
@@ -24,7 +25,7 @@ h1{
     display: flex;
     flex: 1;
     summary {
-      width: 50%;
+
       padding: 1em;
       color: #ffffff;
       border-right: solid 1px #ffffff;
@@ -34,13 +35,6 @@ h1{
         font-weight: 100;
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
       }
-    }
-    img {
-      height: 100%;
-      padding: 1em;
-      align-self: center;
-      color: #ffffff;
-      border-top: solid 1px #ffffff;
     }
   }
 }
