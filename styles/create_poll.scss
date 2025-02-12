@@ -1,6 +1,16 @@
 // Global Body Styles
 body {
-  background-color: skyblue;
+  background: linear-gradient(
+    227deg,
+    rgb(120, 156, 165) 0%,
+    rgb(90, 105, 155) 20%,
+    rgb(73, 84, 131) 34%,
+    rgb(83, 139, 128) 59%,
+    rgb(69, 114, 126) 74%,
+    rgb(68, 116, 128) 100%
+  );
+  background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
   color: navy;
   font-family: Arial, sans-serif;
   display: flex;
@@ -11,7 +21,16 @@ body {
 
 // Header Styling
 header {
-  background-color: #D8BFD8;
+  background: linear-gradient(
+    227deg,
+    #e6d5f9 20%,
+    #d8b9f9 40%,
+    #cc9df8 60%,
+    #bf81f7 80%,
+    #b166f7 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
   color: navy;
   text-align: center;
   padding: 8px 15px;
@@ -31,9 +50,10 @@ header a {
   padding: 6px 12px;
 }
 
+
 // Poll Creation Box
 form {
-  background-color: white;
+  background-color: hsl(290, 100%, 82%);
   width: 80%;
   max-width: 600px;
   margin: 40px auto;
@@ -49,12 +69,25 @@ form {
 .poll-info {
   background-color: #fff9c4;
   padding: 15px 12px;
-  border: 1px solid #fdd835;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+    227deg,
+    rgb(253, 216, 53) 0%,
+    rgb(255, 229, 153) 20%,
+    rgb(255, 218, 103) 40%,
+    rgb(255, 207, 77) 60%,
+    rgb(255, 196, 51) 80%,
+    rgb(255, 185, 25) 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 7.5s ease infinite;
 }
+
+
 
 .poll-info label {
   align-self: flex-start;
@@ -81,12 +114,34 @@ form {
 }
 
 .option-group:nth-child(odd) {
-  background-color: #b3e5fc;
+  background: linear-gradient(
+    227deg,
+    #c8e6c9 0%,
+    #b2d6b0 20%,
+    #9cc698 40%,
+    #86b580 60%,
+    #70a569 80%,
+    #5a9553 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 7.5s ease infinite;
 }
 
 .option-group:nth-child(even) {
-  background-color: #c8e6c9;
+  background: linear-gradient(
+    227deg,
+    #b3e5fc 0%,
+    #a2dafd 20%,
+    #8dcfef 40%,
+    #76b4d8 60%,
+    #5f99c2 80%,
+    #487fa6 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
 }
+
+
 
 .option-group label {
   align-self: flex-start;
@@ -138,7 +193,17 @@ button[type="button"]:hover {
 
 // Footer Styling
 footer {
-  background-color: #D8BFD8;
+  background: linear-gradient(
+    227deg,
+    #D8BFD8 0%,
+    #e6d5f9 20%,
+    #d8b9f9 40%,
+    #cc9df8 60%,
+    #bf81f7 80%,
+    #b166f7 100%
+  );
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
   color: navy;
   text-align: center;
   padding: 10px 0;
@@ -146,6 +211,7 @@ footer {
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 
 footer p {
   margin: 0;
@@ -155,4 +221,16 @@ footer p {
   form {
     width: 95%;
   }
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
