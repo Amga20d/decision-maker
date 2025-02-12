@@ -66,8 +66,15 @@ router.post('/', (req, res) => {
   WHERE polls.id = $1;`;
 
   const queryValues = [4];
-  db.query(queryStr,queryValues).then((data) => {
-    const email_values = { admin_email: data.rows[0].email, poll_link: null, admin_link: data.rows[0].link};
+
+  db.query(queryStr, [pollId]).then((data) => {
+    const adminUrl = `http://localhost:8080/admin/${data.rows[0].link}`;
+
+    const email_values = {
+      admin_email: data.rows[0].email,
+      poll_link: null,
+      admin_link: adminUrl
+    };
 
     sendEmail(email_values)
     .then((res) => {
@@ -84,10 +91,10 @@ router.post('/', (req, res) => {
   db.query(insertQuery, [orderArray, userId, pollId])
     .then(result => {
       // Vote inserted; redirect to /results
-      res.redirect('/results');
+      res.redirect('/submitted');
     })
     .catch(err => {
-      console.error('Error inserting vote', err.stack); 
+      console.error('Error inserting vote', err.stack);
       res.sendStatus(500);
     });
 });

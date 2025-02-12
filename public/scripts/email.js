@@ -35,7 +35,7 @@ const sendEmail = function(email_values, intialEmail) {
       from: `Poll Creator <mailgun@${process.env.MAILGUN_DOMAIN}>`,
       to: [admin_email],
       subject: 'Updated Poll Results',
-      text: `Votes added to poll result! See the new rankings here: ${admin_link}`,
+      html: `Votes added to poll result! See the new rankings here: <a href="${admin_link}">${admin_link}</a>`,
     });
   }
 };
